@@ -1,66 +1,255 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TAP Admin System - Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST desarrollada con Laravel 11, MongoDB y JWT para la gestión de usuarios, perfiles, secciones, productos, permisos, autenticación y bitácora.
 
-## About Laravel
+## Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3
+- Laravel 11
+- MongoDB
+- JWT Auth
+- Composer
+- Postman
+- CSV Export
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalación
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+```
 
-## Learning Laravel
+## Configuración MongoDB
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+En `.env`:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```env
+DB_CONNECTION=mongodb
+DB_HOST=127.0.0.1
+DB_PORT=27017
+DB_DATABASE=tap_admission_dev
+DB_USERNAME=
+DB_PASSWORD=
+DB_AUTHENTICATION_DATABASE=admin
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Migraciones y Seeders
 
-## Laravel Sponsors
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Usuario inicial:
 
-### Premium Partners
+```text
+Email: admin@tap.test
+Password: Password123
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Ejecutar servidor
 
-## Contributing
+```bash
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+URL base:
 
-## Code of Conduct
+```text
+http://127.0.0.1:8000/api
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Autenticación
 
-## Security Vulnerabilities
+El sistema utiliza JWT.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Login:
 
-## License
+```http
+POST /api/auth/login
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Body:
+
+```json
+{
+  "email": "admin@tap.test",
+  "password": "Password123"
+}
+```
+
+El token debe enviarse en las rutas protegidas:
+
+```http
+Authorization: Bearer {token}
+```
+
+## Módulos disponibles
+
+- Auth
+- Users
+- Profiles
+- Sections
+- Products
+- Audit Logs
+
+## Endpoints principales
+
+### Auth
+
+```http
+POST /auth/login
+GET /auth/me
+POST /auth/logout
+```
+
+### Sections
+
+```http
+GET /sections
+POST /sections
+GET /sections/{id}
+PUT /sections/{id}
+DELETE /sections/{id}
+```
+
+### Profiles
+
+```http
+GET /profiles
+POST /profiles
+GET /profiles/{id}
+PUT /profiles/{id}
+DELETE /profiles/{id}
+```
+
+### Users
+
+```http
+GET /users
+POST /users
+GET /users/{id}
+PUT /users/{id}
+DELETE /users/{id}
+```
+
+### Products
+
+```http
+GET /products
+POST /products
+GET /products/{id}
+PUT /products/{id}
+DELETE /products/{id}
+GET /products/export/csv
+```
+
+### Audit Logs
+
+```http
+GET /audit-logs
+GET /audit-logs/{id}
+```
+
+## Respuesta estándar
+
+Respuesta exitosa:
+
+```json
+{
+  "success": true,
+  "message": "Operation completed successfully.",
+  "data": {},
+  "errors": null,
+  "meta": {
+    "timestamp": "2026-07-09T00:00:00Z",
+    "request_id": "uuid",
+    "api_version": "v1"
+  }
+}
+```
+
+Respuesta con error:
+
+```json
+{
+  "success": false,
+  "code": "RESOURCE_NOT_FOUND",
+  "message": "Resource not found.",
+  "data": null,
+  "errors": null,
+  "meta": {
+    "timestamp": "2026-07-09T00:00:00Z",
+    "request_id": "uuid",
+    "api_version": "v1"
+  }
+}
+```
+
+## Permisos
+
+El control de acceso se basa en:
+
+```text
+Usuario -> Perfiles -> Secciones -> Acciones
+```
+
+Acciones disponibles:
+
+```text
+VIEW
+CREATE
+UPDATE
+DELETE
+EXPORT
+```
+
+## Pruebas
+
+```bash
+php artisan test
+php artisan route:list
+```
+
+## Exportaciones
+
+Actualmente el sistema exporta productos en formato CSV:
+
+```http
+GET /api/products/export/csv
+```
+
+El CSV incluye BOM UTF-8 para compatibilidad con Excel en Windows.
+
+## Bitácora
+
+El sistema registra operaciones principales:
+
+- CREATE
+- UPDATE
+- DELETE
+- LOGIN
+- LOGOUT
+- EXPORT
+
+La bitácora almacena:
+
+- módulo
+- acción
+- registro afectado
+- usuario
+- IP
+- user agent
+- datos anteriores
+- datos nuevos
+
+## Convenciones
+
+- Código en inglés.
+- Documentación en español.
+- Respuestas API uniformes.
+- Soft Delete en registros principales.
+- MongoDB como persistencia principal.
+- JWT para autenticación.
