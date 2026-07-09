@@ -13,6 +13,11 @@ class UserService extends BaseService
         private readonly UserRepository $userRepository
     ) {}
 
+    protected function auditModule(): string
+    {
+        return 'USERS';
+    }
+
     protected function repository(): BaseRepository
     {
         return $this->userRepository;

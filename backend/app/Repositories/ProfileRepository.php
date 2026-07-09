@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Filters\BaseFilter;
+use App\Filters\ProfileFilter;
 use App\Models\Profile;
 
 class ProfileRepository extends BaseRepository
@@ -11,11 +13,8 @@ class ProfileRepository extends BaseRepository
         return Profile::class;
     }
 
-    protected function applySearch($query, string $search)
+    protected function filter(): BaseFilter
     {
-        return $query->where(function ($q) use ($search) {
-            $q->where('code', 'like', "%{$search}%")
-                ->orWhere('name', 'like', "%{$search}%");
-        });
+        return new ProfileFilter();
     }
 }

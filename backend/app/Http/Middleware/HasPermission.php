@@ -22,6 +22,7 @@ class HasPermission
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthenticated.',
+                'code' => 'UNAUTHENTICATED',
                 'data' => null,
                 'errors' => null,
                 'meta' => [
@@ -34,6 +35,7 @@ class HasPermission
             return response()->json([
                 'success' => false,
                 'message' => 'You do not have permission to perform this action.',
+                'code' => 'FORBIDDEN',
                 'data' => null,
                 'errors' => null,
                 'meta' => [

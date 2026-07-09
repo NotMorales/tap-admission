@@ -11,6 +11,11 @@ class SectionService extends BaseService
         private readonly SectionRepository $sectionRepository
     ) {}
 
+    protected function auditModule(): string
+    {
+        return 'SECTIONS';
+    }
+
     protected function repository(): BaseRepository
     {
         return $this->sectionRepository;

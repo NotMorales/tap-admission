@@ -3,18 +3,18 @@
 namespace App\Repositories;
 
 use App\Filters\BaseFilter;
-use App\Filters\SectionFilter;
-use App\Models\Section;
+use App\Filters\AuditLogFilter;
+use App\Models\AuditLog;
 
-class SectionRepository extends BaseRepository
+class AuditLogRepository extends BaseRepository
 {
     protected function model(): string
     {
-        return Section::class;
+        return AuditLog::class;
     }
 
     protected function filter(): BaseFilter
     {
-        return new SectionFilter();
+        return new AuditLogFilter();
     }
 }

@@ -70,6 +70,21 @@ class SectionSeeder extends Seeder
             ],
             [
                 'code' => 'SEC-000005',
+                'name' => 'Secciones',
+                'route' => '/sections',
+                'icon' => 'view_module',
+                'permissions' => [
+                    PermissionAction::VIEW->value,
+                    PermissionAction::CREATE->value,
+                    PermissionAction::UPDATE->value,
+                    PermissionAction::DELETE->value,
+                    PermissionAction::EXPORT->value,
+                ],
+                'order' => 5,
+                'status' => SectionStatus::ACTIVE->value,
+            ],
+            [
+                'code' => 'SEC-000006',
                 'name' => 'Bitácora',
                 'route' => '/audit-logs',
                 'icon' => 'history',
@@ -77,7 +92,7 @@ class SectionSeeder extends Seeder
                     PermissionAction::VIEW->value,
                     PermissionAction::EXPORT->value,
                 ],
-                'order' => 5,
+                'order' => 6,
                 'status' => SectionStatus::ACTIVE->value,
             ],
         ];

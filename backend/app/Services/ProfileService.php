@@ -11,6 +11,11 @@ class ProfileService extends BaseService
         private readonly ProfileRepository $profileRepository
     ) {}
 
+    protected function auditModule(): string
+    {
+        return 'PROFILES';
+    }
+
     protected function repository(): BaseRepository
     {
         return $this->profileRepository;

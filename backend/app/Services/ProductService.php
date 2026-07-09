@@ -14,6 +14,11 @@ class ProductService extends BaseService
         private readonly ActivityLogger $logger,
     ) {}
 
+    protected function auditModule(): string
+    {
+        return 'PRODUCTS';
+    }
+
     protected function repository(): BaseRepository
     {
         return $this->productRepository;

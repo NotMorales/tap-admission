@@ -27,26 +27,63 @@ abstract class BaseService
 
     public function create(array $data): BaseModel
     {
-        return $this->repository()->create($data);
+        $record = $this->repository()->create($data);
+
+        app(AuditLogService::class)->record(
+            module: $this->auditModule(),
+            action: 'CREATE',
+            model: $record,
+            oldData: [],
+            newData: $record->toArray()
+        );
+
+        return $record;
     }
 
     public function update(string $id, array $data): BaseModel
     {
         $record = $this->find($id);
+        $oldData = $record->toArray();
 
-        return $this->repository()->update($record, $data);
+        $updated = $this->repository()->update($record, $data);
+
+        app(AuditLogService::class)->record(
+            module: $this->auditModule(),
+            action: 'UPDATE',
+            model: $updated,
+            oldData: $oldData,
+            newData: $updated->toArray()
+        );
+
+        return $updated;
     }
 
     public function delete(string $id): bool
     {
         $record = $this->find($id);
+        $oldData = $record->toArray();
 
-        return $this->repository()->delete($record);
+        $deleted = $this->repository()->delete($record);
+
+        app(AuditLogService::class)->record(
+            module: $this->auditModule(),
+            action: 'DELETE',
+            model: $record,
+            oldData: $oldData,
+            newData: []
+        );
+
+        return $deleted;
     }
 
     public function restore(string $id): bool
     {
         return $this->repository()->restore($id);
+    }
+
+    protected function auditModule(): string
+    {
+        return 'GENERAL';
     }
 
     protected function notFoundMessage(): string

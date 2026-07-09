@@ -15,7 +15,8 @@ class ProfileSeeder extends BaseSeeder
         $users = Section::where('code', 'SEC-000002')->first();
         $products = Section::where('code', 'SEC-000003')->first();
         $profiles = Section::where('code', 'SEC-000004')->first();
-        $audit = Section::where('code', 'SEC-000005')->first();
+        $sections = Section::where('code', 'SEC-000005')->first();
+        $audit = Section::where('code', 'SEC-000006')->first();
 
         $this->seed(
             Profile::class,
@@ -33,6 +34,16 @@ class ProfileSeeder extends BaseSeeder
                         ],
                         [
                             'section_id' => (string) $users->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::CREATE->value,
+                                PermissionAction::UPDATE->value,
+                                PermissionAction::DELETE->value,
+                                PermissionAction::EXPORT->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $sections->_id,
                             'actions' => [
                                 PermissionAction::VIEW->value,
                                 PermissionAction::CREATE->value,

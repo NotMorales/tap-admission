@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\Exports\ProductExportController;
+use App\Http\Controllers\Api\AuditLogController;
 
 
 Route::prefix('auth')->group(function () {
@@ -20,7 +21,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-
     // Sections
     Route::get('sections', [SectionController::class, 'index'])
         ->middleware('permission:/sections,VIEW');
@@ -71,4 +71,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('products/export/csv', [ProductExportController::class, 'csv'])
         ->middleware('permission:/products,EXPORT');
+
+    Route::get('audit-logs', [AuditLogController::class, 'index'])
+        ->middleware('permission:/audit-logs,VIEW');
+
+    Route::get('audit-logs/{auditLog}', [AuditLogController::class, 'show'])
+        ->middleware('permission:/audit-logs,VIEW');
 });
