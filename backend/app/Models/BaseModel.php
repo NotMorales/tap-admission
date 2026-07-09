@@ -4,10 +4,12 @@ namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
 use MongoDB\Laravel\Eloquent\SoftDeletes;
+use App\Traits\HasUserTracking;
 
 abstract class BaseModel extends Model
 {
     use SoftDeletes;
+    use HasUserTracking;
 
     protected $connection = 'mongodb';
 
