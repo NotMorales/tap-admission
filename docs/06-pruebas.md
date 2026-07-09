@@ -79,6 +79,33 @@ Verificar el correcto funcionamiento de todos los módulos del sistema mediante 
 
 ---
 
+## Casos adicionales
+
+### Exportaciones
+
+- Exportar productos PDF
+- Exportar productos CSV
+- Exportar usuarios PDF
+- Exportar usuarios CSV
+- Exportar perfiles PDF
+- Exportar perfiles CSV
+
+---
+
+### Password Recovery
+
+- Recuperación correcta
+- Usuario inexistente
+
+---
+
+### Auditoría
+
+- LOGIN
+- LOGOUT
+- EXPORT
+- PASSWORD_RECOVERY
+
 # Ejecución
 
 ```bash

@@ -89,6 +89,38 @@ GET /audit-logs/{id}
 
 ---
 
+# Password Recovery
+
+POST
+
+/auth/recover-password
+
+Body
+
+```json
+{
+    "email":"admin@tap.test"
+}
+```
+
+---
+
+# Exportaciones
+
+GET
+
+/products/export/pdf
+
+/products/export/csv
+
+/users/export/pdf
+
+/users/export/csv
+
+/profiles/export/pdf
+
+/profiles/export/csv
+
 # Headers
 
 Authorization
