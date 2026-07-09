@@ -1,0 +1,22 @@
+<mat-card>
+  <div class="header">
+    <div>
+      <h2>Perfiles</h2>
+      <p>Consulta de perfiles y permisos</p>
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportCsv()">CSV</button>
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportPdf()">PDF</button>
+    </div>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [rows]="profiles"
+    [canView]="can('VIEW')"
+    [canEdit]="can('UPDATE')"
+    [canDelete]="can('DELETE')"
+    (view)="view($event)"
+  />
+</mat-card>

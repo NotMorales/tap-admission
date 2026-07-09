@@ -1,0 +1,17 @@
+<mat-card>
+  <div class="header">
+    <div>
+      <h2>Bitácora</h2>
+      <p>Registro de acciones del sistema</p>
+    </div>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [rows]="logs"
+    [canView]="true"
+    [canEdit]="false"
+    [canDelete]="false"
+    (view)="view($event)"
+  />
+</mat-card>

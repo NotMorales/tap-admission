@@ -1,0 +1,22 @@
+<mat-card>
+  <div class="header">
+    <div>
+      <h2>Usuarios</h2>
+      <p>Consulta de usuarios registrados</p>
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportCsv()">CSV</button>
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportPdf()">PDF</button>
+    </div>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [rows]="users"
+    [canView]="can('VIEW')"
+    [canEdit]="can('UPDATE')"
+    [canDelete]="can('DELETE')"
+    (view)="view($event)"
+  />
+</mat-card>

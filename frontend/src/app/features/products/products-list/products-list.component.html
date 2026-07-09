@@ -1,0 +1,33 @@
+<mat-card>
+  <div class="header">
+    <div>
+      <h2>Productos</h2>
+      <p>Consulta y administración de productos</p>
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportCsv()">
+        CSV
+      </button>
+
+      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportPdf()">
+        PDF
+      </button>
+
+      <button mat-raised-button color="primary" *ngIf="can('CREATE')" (click)="create()">
+        Nuevo producto
+      </button>
+    </div>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [rows]="products"
+    [canView]="can('VIEW')"
+    [canEdit]="can('UPDATE')"
+    [canDelete]="can('DELETE')"
+    (view)="view($event)"
+    (edit)="edit($event)"
+    (delete)="delete($event)"
+  />
+</mat-card>
