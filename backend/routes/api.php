@@ -7,9 +7,13 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\Exports\ProductExportController;
 use App\Http\Controllers\Api\AuditLogController;
+use App\Http\Controllers\Api\Exports\ProductExportController;
+use App\Http\Controllers\Api\Exports\UserExportController;
+use App\Http\Controllers\Api\Exports\ProfileExportController;
+use App\Http\Controllers\Api\PasswordRecoveryController;
 
+Route::post('auth/recover-password', [PasswordRecoveryController::class, 'recover']);
 
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -69,12 +73,33 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('products/{product}', [ProductController::class, 'destroy'])
         ->middleware('permission:/products,DELETE');
 
-    Route::get('products/export/csv', [ProductExportController::class, 'csv'])
-        ->middleware('permission:/products,EXPORT');
+    Route::prefix('products')->group(function () {
+        Route::get('export/csv', [ProductExportController::class, 'csv'])
+            ->middleware('permission:/products,EXPORT');
+
+        Route::get('export/pdf', [ProductExportController::class, 'pdf'])
+            ->middleware('permission:/products,EXPORT');
+
+    });
+
+    Route::get('users/export/pdf', [UserExportController::class, 'pdf'])
+        ->middleware('permission:/users,EXPORT');
+
+    Route::get('profiles/export/pdf', [ProfileExportController::class, 'pdf'])
+        ->middleware('permission:/profiles,EXPORT');
+
+    Route::get('users/export/csv', [UserExportController::class, 'csv'])
+        ->middleware('permission:/users,EXPORT');
+
+    Route::get('profiles/export/csv', [ProfileExportController::class, 'csv'])
+        ->middleware('permission:/profiles,EXPORT');
 
     Route::get('audit-logs', [AuditLogController::class, 'index'])
         ->middleware('permission:/audit-logs,VIEW');
 
     Route::get('audit-logs/{auditLog}', [AuditLogController::class, 'show'])
         ->middleware('permission:/audit-logs,VIEW');
+
+    Route::post('users/{user}/photo', [UserPhotoController::class, 'upload'])
+        ->middleware('permission:/users,UPDATE');
 });

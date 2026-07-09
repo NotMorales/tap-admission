@@ -41,7 +41,6 @@ class AuthorizationTest extends ApiTestCase
         $token = $login->json('data.access_token');
 
         $this->postJson('/api/products', [
-            'code' => 'PROD-FORBIDDEN',
             'name' => 'Producto Sin Permiso',
             'brand' => 'TAP',
             'price' => 100,

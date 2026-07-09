@@ -9,15 +9,9 @@ abstract class BaseRepository
 {
     public function paginate(array $filters = [], int $perPage = 10): LengthAwarePaginator
     {
-        $query = $this->model()::query()->whereNull('deleted_at');
+        $query = $this->query();
 
-        if (! empty($filters['search'])) {
-            $query = $this->applySearch($query, $filters['search']);
-        }
-
-        if (! empty($filters['status'])) {
-            $query->where('status', $filters['status']);
-        }
+        $query = $this->filter()->apply($query, $filters);
 
         $sort = $filters['sort'] ?? 'created_at';
         $direction = $filters['direction'] ?? 'desc';
@@ -58,6 +52,19 @@ abstract class BaseRepository
         }
 
         return (bool) $record->restore();
+    }
+
+    protected function query()
+    {
+        return $this->model()::query()
+            ->whereNull('deleted_at');
+    }
+
+    public function allForExport()
+    {
+        return $this->query()
+            ->orderBy('created_at', 'desc')
+            ->get();
     }
 
     abstract protected function model(): string;

@@ -17,4 +17,11 @@ class ProfileRepository extends BaseRepository
     {
         return new ProfileFilter();
     }
+
+    public function allForExport()
+    {
+        return $this->query()
+            ->orderBy('name')
+            ->get();
+    }
 }

@@ -22,4 +22,11 @@ class UserRepository extends BaseRepository
     {
         return $query;
     }
+
+    public function allForExport()
+    {
+        return $this->query()
+            ->orderBy('name')
+            ->get();
+    }
 }

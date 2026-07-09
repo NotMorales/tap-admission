@@ -223,6 +223,23 @@ GET /api/products/export/csv
 
 El CSV incluye BOM UTF-8 para compatibilidad con Excel en Windows.
 
+## Pruebas automatizadas
+
+El backend cuenta con pruebas Feature para:
+
+- Auth
+- Users
+- Profiles
+- Sections
+- Products
+- Audit Logs
+- Authorization
+
+Ejecutar:
+
+```bash
+php artisan test
+
 ## Bitácora
 
 El sistema registra operaciones principales:

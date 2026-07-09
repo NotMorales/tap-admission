@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'photo' => $this->photo,
+            'photo_url' => $this->photo ? asset('storage/' . $this->photo) : null,
             'profile_ids' => $this->profile_ids,
             'profiles' => ProfileResource::collection($profiles),
             'status' => $this->status,

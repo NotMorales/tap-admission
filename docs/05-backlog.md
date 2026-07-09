@@ -1,175 +1,137 @@
 # Backlog del Proyecto
 
-## Objetivo
-
-Definir las funcionalidades del sistema organizadas por módulos (épicas), permitiendo dar seguimiento al desarrollo y verificar el cumplimiento de los requerimientos de la prueba técnica.
-
----
-
-# Estado de las tareas
-
+## Estado
 - ⬜ Pendiente
 - 🟡 En progreso
 - ✅ Completada
+- 🔁 Ajustada
 
----
-
-# Épica 1 - Configuración del Proyecto
+## Épica 1 - Configuración del Proyecto
 
 | Estado | Tarea |
 |--------|-------|
-| ✅ | Configuración del entorno de desarrollo |
-| ✅ | Definición de la arquitectura |
-| ✅ | Diseño del modelo de datos |
-| ✅ | Definición de la API |
-| ⬜ | Crear proyecto Laravel 11 |
-| ⬜ | Crear proyecto Angular 19 |
-| ⬜ | Configurar MongoDB |
+| ✅ | Configuración del entorno |
+| ✅ | Crear proyecto Laravel 11 |
+| ✅ | Configurar MongoDB |
+| ✅ | Configurar JWT |
+| ✅ | Configurar Git |
 | ⬜ | Configurar Docker |
-| ⬜ | Configurar GitHub |
+| ⬜ | Crear proyecto Angular |
 
----
-
-# Épica 2 - Autenticación
+## Épica 2 - Backend Core
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Login |
-| ⬜ | Logout |
-| ⬜ | Obtener usuario autenticado |
+| ✅ | Arquitectura Controller-Service-Repository |
+| ✅ | BaseModel |
+| ✅ | BaseService |
+| ✅ | BaseRepository |
+| ✅ | Enums |
+| ✅ | Form Requests |
+| ✅ | API Resources |
+| ✅ | Respuestas estándar |
+| ✅ | Manejo de errores con code |
+| ✅ | Soft Delete |
+| ✅ | Filtros y paginación |
+
+## Épica 3 - Autenticación y Autorización
+
+| Estado | Tarea |
+|--------|-------|
+| ✅ | Login |
+| ✅ | Logout |
+| ✅ | Auth Me |
+| ✅ | JWT |
+| ✅ | Middleware auth |
+| ✅ | Middleware permission |
+| ✅ | Contexto usuario-perfiles-secciones |
+| ✅ | Permisos por perfil |
+| ⬜ | Refresh token |
 | ⬜ | Recuperación de contraseña |
-| ⬜ | Implementar JWT |
-| ⬜ | Middleware de autenticación |
-| ⬜ | Middleware de autorización |
 
----
-
-# Épica 3 - Usuarios
+## Épica 4 - Módulos Backend
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Modelo User |
-| ⬜ | CRUD |
-| ⬜ | Soft Delete |
-| ⬜ | Validaciones |
-| ⬜ | Subida de fotografía |
-| ⬜ | Asignación de perfiles |
-| ⬜ | Exportar PDF |
-| ⬜ | Exportar Excel |
+| ✅ | Sections CRUD |
+| ✅ | Profiles CRUD |
+| ✅ | Users CRUD |
+| ✅ | Products CRUD |
+| ✅ | Audit Logs |
+| ✅ | Seeders base |
+| ✅ | Índices MongoDB |
 
----
-
-# Épica 4 - Productos
+## Épica 5 - Exportaciones
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Modelo Product |
-| ⬜ | CRUD |
-| ⬜ | Soft Delete |
-| ⬜ | Validaciones |
-| ⬜ | Exportar PDF |
-| ⬜ | Exportar Excel |
+| ✅ | Exportar productos CSV |
+| ⬜ | Exportar productos PDF |
+| ⬜ | Exportar usuarios CSV/PDF |
+| ⬜ | Exportar perfiles CSV/PDF |
+| 🔁 | Excel real .xlsx queda como mejora final |
 
----
-
-# Épica 5 - Perfiles
+## Épica 6 - Bitácora
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Modelo Profile |
-| ⬜ | CRUD |
-| ⬜ | Asignación de secciones |
-| ⬜ | Soft Delete |
-| ⬜ | Exportar PDF |
-| ⬜ | Exportar Excel |
-
----
-
-# Épica 6 - Secciones
-
-| Estado | Tarea |
-|--------|-------|
-| ⬜ | Modelo Section |
-| ⬜ | CRUD |
-| ⬜ | Gestión de permisos |
-| ⬜ | Menú dinámico |
-
----
-
-# Épica 7 - Auditoría
-
-| Estado | Tarea |
-|--------|-------|
-| ⬜ | Modelo AuditLog |
-| ⬜ | Registrar CREATE |
-| ⬜ | Registrar UPDATE |
-| ⬜ | Registrar DELETE |
+| ✅ | Modelo AuditLog |
+| ✅ | Registrar CREATE |
+| ✅ | Registrar UPDATE |
+| ✅ | Registrar DELETE |
 | ⬜ | Registrar LOGIN |
 | ⬜ | Registrar LOGOUT |
 | ⬜ | Registrar EXPORT |
+| ✅ | Consulta de bitácora |
 
----
-
-# Épica 8 - Frontend
+## Épica 7 - Pruebas
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Layout principal |
+| ✅ | AuthTest |
+| ✅ | ProductTest |
+| ✅ | SectionTest |
+| ✅ | ProfileTest |
+| ✅ | UserTest |
+| ✅ | AuditLogTest |
+| ✅ | AuthorizationTest |
+| ✅ | ApiTestCase base |
+
+## Épica 8 - Documentación
+
+| Estado | Tarea |
+|--------|-------|
+| ✅ | README backend |
+| ✅ | Backlog |
+| ✅ | Documentos de arquitectura |
+| ⬜ | docs/06-pruebas.md |
+| ⬜ | docs/07-postman.md |
+| ⬜ | Exportar colección Postman |
+| ⬜ | Swagger/OpenAPI |
+
+## Épica 9 - Frontend Angular
+
+| Estado | Tarea |
+|--------|-------|
+| ⬜ | Crear proyecto Angular |
+| ⬜ | Configurar estructura |
 | ⬜ | Login |
-| ⬜ | Dashboard |
-| ⬜ | Usuarios |
+| ⬜ | Layout principal |
+| ⬜ | Menú dinámico desde /auth/me |
+| ⬜ | Guards |
+| ⬜ | Interceptor JWT |
 | ⬜ | Productos |
+| ⬜ | Usuarios |
 | ⬜ | Perfiles |
 | ⬜ | Secciones |
 | ⬜ | Bitácora |
 
----
-
-# Épica 9 - Calidad
+## Épica 10 - Despliegue
 
 | Estado | Tarea |
 |--------|-------|
-| ⬜ | Validaciones Backend |
-| ⬜ | Validaciones Frontend |
-| ⬜ | Manejo de errores |
-| ⬜ | API Resources |
-| ⬜ | Enums |
-| ⬜ | Policies |
-| ⬜ | Form Requests |
-
----
-
-# Épica 10 - Documentación
-
-| Estado | Tarea |
-|--------|-------|
-| ⬜ | Swagger |
-| ⬜ | Colección Postman |
-| ⬜ | README |
-| ⬜ | Manual Técnico |
-
----
-
-# Épica 11 - Despliegue
-
-| Estado | Tarea |
-|--------|-------|
+| ⬜ | Dockerfile backend |
+| ⬜ | Dockerfile frontend |
 | ⬜ | Docker Compose |
 | ⬜ | Variables de entorno |
-| ⬜ | GitHub Actions (Opcional) |
-| ⬜ | Deploy Local |
 | ⬜ | Pruebas finales |
-
----
-
-# Criterios de Finalización
-
-El proyecto se considerará concluido cuando:
-
-- Todas las funcionalidades obligatorias del examen estén implementadas.
-- La API se encuentre documentada.
-- El sistema pueda ejecutarse mediante Docker.
-- La autenticación y autorización funcionen correctamente.
-- Los módulos principales cuenten con auditoría.
-- Las exportaciones a PDF y Excel estén operativas.
-- El código siga las convenciones definidas para el proyecto.

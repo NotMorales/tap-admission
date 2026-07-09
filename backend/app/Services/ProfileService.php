@@ -25,4 +25,9 @@ class ProfileService extends BaseService
     {
         return 'Profile not found.';
     }
+
+    public function allForExport()
+    {
+        return $this->repository()->allForExport();
+    }
 }

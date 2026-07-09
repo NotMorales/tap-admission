@@ -15,7 +15,6 @@ class ProductTest extends ApiTestCase
     public function test_user_can_create_product(): void
     {
         $response = $this->postJson('/api/products', [
-            'code' => 'PROD-TEST-01',
             'name' => 'Producto Test',
             'brand' => 'TAP',
             'price' => 250,
@@ -24,7 +23,7 @@ class ProductTest extends ApiTestCase
 
         $response->assertCreated()
             ->assertJsonPath('success', true)
-            ->assertJsonPath('data.code', 'PROD-TEST-01');
+            ->assertJsonPath('data.name', 'Producto Test');
     }
 
     public function test_user_can_update_product(): void

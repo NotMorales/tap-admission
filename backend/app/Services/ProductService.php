@@ -6,6 +6,8 @@ use App\Logging\ActivityLogger;
 use App\Models\BaseModel;
 use App\Repositories\BaseRepository;
 use App\Repositories\ProductRepository;
+use App\Models\Product;
+use App\Support\CodeGenerator;
 
 class ProductService extends BaseService
 {
@@ -39,8 +41,20 @@ class ProductService extends BaseService
         $this->logger->info('PRODUCTS', 'DELETE', ['id' => (string) $model->_id]);
     }
 
+    public function create(array $data): BaseModel
+    {
+        $data['code'] = CodeGenerator::generate(Product::class, 'PROD');
+
+        return parent::create($data);
+    }
+
     protected function notFoundMessage(): string
     {
         return 'Product not found.';
+    }
+
+    public function allForExport()
+    {
+        return $this->repository()->allForExport();
     }
 }

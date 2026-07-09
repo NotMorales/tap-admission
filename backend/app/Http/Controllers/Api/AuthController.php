@@ -11,13 +11,15 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\AuditLogService;
 
 class AuthController extends Controller
 {
     use ApiResponse;
 
     public function __construct(
-        private readonly AuthorizationService $authorizationService
+        private readonly AuthorizationService $authorizationService,
+        private readonly AuditLogService $auditLogService
     ) {}
 
     public function login(Request $request): JsonResponse
@@ -33,6 +35,17 @@ class AuthController extends Controller
 
         $user = Auth::guard('api')->user();
         $context = $this->authorizationService->context($user);
+
+        $this->auditLogService->record(
+            module: 'AUTH',
+            action: 'LOGIN',
+            model: $user,
+            oldData: [],
+            newData: [
+                'email' => $user->email,
+                'login_success' => true,
+            ]
+        );
 
         return $this->successResponse('Login successful.', [
             'access_token' => $token,
@@ -58,6 +71,19 @@ class AuthController extends Controller
 
     public function logout(): JsonResponse
     {
+        $user = Auth::guard('api')->user();
+
+        $this->auditLogService->record(
+            module: 'AUTH',
+            action: 'LOGOUT',
+            model: $user,
+            oldData: [],
+            newData: [
+                'email' => $user?->email,
+                'logout_success' => true,
+            ]
+        );
+
         Auth::guard('api')->logout();
 
         return $this->successResponse('Logout successful.');

@@ -15,7 +15,6 @@ class AdminSeeder extends Seeder
         $adminProfile = Profile::where('code', 'PRF-000001')->first();
 
         User::query()->updateOrCreate(
-            ['email' => 'admin@tap.test'],
             [
                 'code' => 'USR-000001',
                 'name' => 'Administrador',

@@ -6,6 +6,8 @@ use App\Models\BaseModel;
 use App\Repositories\BaseRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Support\CodeGenerator;
 
 class UserService extends BaseService
 {
@@ -25,7 +27,11 @@ class UserService extends BaseService
 
     public function create(array $data): BaseModel
     {
-        $data['password'] = Hash::make($data['password']);
+        $data['code'] = CodeGenerator::generate(User::class, 'USR');
+
+        if (! empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
 
         return parent::create($data);
     }
@@ -44,5 +50,10 @@ class UserService extends BaseService
     protected function notFoundMessage(): string
     {
         return 'User not found.';
+    }
+
+    public function allForExport()
+    {
+        return $this->repository()->allForExport();
     }
 }

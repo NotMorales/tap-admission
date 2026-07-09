@@ -17,4 +17,11 @@ class ProductRepository extends BaseRepository
     {
         return new ProductFilter();
     }
+
+    public function allForExport()
+    {
+        return $this->query()
+            ->orderBy('name')
+            ->get();
+    }
 }

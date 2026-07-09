@@ -16,7 +16,6 @@ class UserTest extends ApiTestCase
         $profileId = $this->getJson('/api/profiles', $this->authHeaders())->json('data.0.id');
 
         $this->postJson('/api/users', [
-            'code' => 'USR-TEST-01',
             'name' => 'Usuario Test',
             'email' => 'user.test@tap.test',
             'password' => 'Password123',
