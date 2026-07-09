@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AuditLogService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class PasswordRecoveryController extends Controller
+class PasswordRecoveryController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly AuditLogService $auditLogService
     ) {}
@@ -38,7 +34,7 @@ class PasswordRecoveryController extends Controller
             );
         }
 
-        $temporaryPassword = 'Tap-'.Str::upper(Str::random(8));
+        $temporaryPassword = 'Tap-' . Str::upper(Str::random(8));
 
         $user->password = Hash::make($temporaryPassword);
         $user->save();
@@ -54,9 +50,9 @@ class PasswordRecoveryController extends Controller
             ]
         );
 
-        return $this->successResponse(
-            message: 'Temporary password generated successfully.',
-            data: [
+        return $this->resourceResponse(
+            'Temporary password generated successfully.',
+            [
                 'email' => $user->email,
                 'temporary_password' => $temporaryPassword,
                 'note' => 'In production this password should be sent by email.',

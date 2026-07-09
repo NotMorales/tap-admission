@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly UserService $userService
     ) {}
@@ -34,10 +30,10 @@ class UserController extends Controller
     {
         $user = $this->userService->create($request->validated());
 
-        return $this->successResponse(
-            message: 'User created successfully.',
-            data: new UserResource($user),
-            status: 201
+        return $this->resourceResponse(
+            'User created successfully.',
+            new UserResource($user),
+            201
         );
     }
 
@@ -45,9 +41,9 @@ class UserController extends Controller
     {
         $user = $this->userService->find($id);
 
-        return $this->successResponse(
-            message: 'User retrieved successfully.',
-            data: new UserResource($user)
+        return $this->resourceResponse(
+            'User retrieved successfully.',
+            new UserResource($user)
         );
     }
 
@@ -55,9 +51,9 @@ class UserController extends Controller
     {
         $user = $this->userService->update($id, $request->validated());
 
-        return $this->successResponse(
-            message: 'User updated successfully.',
-            data: new UserResource($user)
+        return $this->resourceResponse(
+            'User updated successfully.',
+            new UserResource($user)
         );
     }
 
@@ -65,8 +61,6 @@ class UserController extends Controller
     {
         $this->userService->delete($id);
 
-        return $this->successResponse(
-            message: 'User deleted successfully.'
-        );
+        return $this->deletedResponse('User deleted successfully.');
     }
 }

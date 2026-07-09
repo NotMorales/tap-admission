@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
 use App\Http\Resources\SectionCollection;
 use App\Http\Resources\SectionResource;
 use App\Services\SectionService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SectionController extends Controller
+class SectionController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly SectionService $sectionService
     ) {}
@@ -34,10 +30,10 @@ class SectionController extends Controller
     {
         $section = $this->sectionService->create($request->validated());
 
-        return $this->successResponse(
-            message: 'Section created successfully.',
-            data: new SectionResource($section),
-            status: 201
+        return $this->resourceResponse(
+            'Section created successfully.',
+            new SectionResource($section),
+            201
         );
     }
 
@@ -45,9 +41,9 @@ class SectionController extends Controller
     {
         $section = $this->sectionService->find($id);
 
-        return $this->successResponse(
-            message: 'Section retrieved successfully.',
-            data: new SectionResource($section)
+        return $this->resourceResponse(
+            'Section retrieved successfully.',
+            new SectionResource($section)
         );
     }
 
@@ -55,9 +51,9 @@ class SectionController extends Controller
     {
         $section = $this->sectionService->update($id, $request->validated());
 
-        return $this->successResponse(
-            message: 'Section updated successfully.',
-            data: new SectionResource($section)
+        return $this->resourceResponse(
+            'Section updated successfully.',
+            new SectionResource($section)
         );
     }
 
@@ -65,8 +61,6 @@ class SectionController extends Controller
     {
         $this->sectionService->delete($id);
 
-        return $this->successResponse(
-            message: 'Section deleted successfully.'
-        );
+        return $this->deletedResponse('Section deleted successfully.');
     }
 }

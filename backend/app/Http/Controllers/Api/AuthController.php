@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthProfileResource;
 use App\Http\Resources\AuthSectionResource;
 use App\Http\Resources\AuthUserResource;
 use App\Services\AuditLogService;
 use App\Services\AuthorizationService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly AuthorizationService $authorizationService,
         private readonly AuditLogService $auditLogService
@@ -30,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         if (! $token = Auth::guard('api')->attempt($credentials)) {
-            return $this->errorResponse('Invalid credentials.', null, 401);
+            return $this->errorResponse('Invalid credentials.', null, 401, 'INVALID_CREDENTIALS');
         }
 
         $user = Auth::guard('api')->user();
@@ -47,7 +43,7 @@ class AuthController extends Controller
             ]
         );
 
-        return $this->successResponse('Login successful.', [
+        return $this->resourceResponse('Login successful.', [
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 60,
@@ -62,7 +58,7 @@ class AuthController extends Controller
         $user = Auth::guard('api')->user();
         $context = $this->authorizationService->context($user);
 
-        return $this->successResponse('Authenticated user retrieved successfully.', [
+        return $this->resourceResponse('Authenticated user retrieved successfully.', [
             'user' => new AuthUserResource($context['user']),
             'profiles' => AuthProfileResource::collection($context['profiles']),
             'sections' => AuthSectionResource::collection($context['sections']),
@@ -86,6 +82,6 @@ class AuthController extends Controller
 
         Auth::guard('api')->logout();
 
-        return $this->successResponse('Logout successful.');
+        return $this->deletedResponse('Logout successful.');
     }
 }

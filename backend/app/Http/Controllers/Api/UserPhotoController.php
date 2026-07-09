@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class UserPhotoController extends Controller
+class UserPhotoController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly UserService $userService
     ) {}
@@ -36,9 +32,9 @@ class UserPhotoController extends Controller
             'photo' => $path,
         ]);
 
-        return $this->successResponse(
-            message: 'User photo uploaded successfully.',
-            data: new UserResource($user)
+        return $this->resourceResponse(
+            'User photo uploaded successfully.',
+            new UserResource($user)
         );
     }
 }

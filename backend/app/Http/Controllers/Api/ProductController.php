@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Services\ProductService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly ProductService $productService
     ) {}
@@ -34,10 +30,10 @@ class ProductController extends Controller
     {
         $product = $this->productService->create($request->validated());
 
-        return $this->successResponse(
-            message: 'Product created successfully.',
-            data: new ProductResource($product),
-            status: 201
+        return $this->resourceResponse(
+            'Product created successfully.',
+            new ProductResource($product),
+            201
         );
     }
 
@@ -45,9 +41,9 @@ class ProductController extends Controller
     {
         $product = $this->productService->find($id);
 
-        return $this->successResponse(
-            message: 'Product retrieved successfully.',
-            data: new ProductResource($product)
+        return $this->resourceResponse(
+            'Product retrieved successfully.',
+            new ProductResource($product)
         );
     }
 
@@ -55,9 +51,9 @@ class ProductController extends Controller
     {
         $product = $this->productService->update($id, $request->validated());
 
-        return $this->successResponse(
-            message: 'Product updated successfully.',
-            data: new ProductResource($product)
+        return $this->resourceResponse(
+            'Product updated successfully.',
+            new ProductResource($product)
         );
     }
 
@@ -65,8 +61,6 @@ class ProductController extends Controller
     {
         $this->productService->delete($id);
 
-        return $this->successResponse(
-            message: 'Product deleted successfully.'
-        );
+        return $this->deletedResponse('Product deleted successfully.');
     }
 }

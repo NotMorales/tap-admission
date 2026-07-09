@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\ProfileCollection;
 use App\Http\Resources\ProfileResource;
 use App\Services\ProfileService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class ProfileController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly ProfileService $profileService
     ) {}
@@ -34,10 +30,10 @@ class ProfileController extends Controller
     {
         $profile = $this->profileService->create($request->validated());
 
-        return $this->successResponse(
-            message: 'Profile created successfully.',
-            data: new ProfileResource($profile),
-            status: 201
+        return $this->resourceResponse(
+            'Profile created successfully.',
+            new ProfileResource($profile),
+            201
         );
     }
 
@@ -45,9 +41,9 @@ class ProfileController extends Controller
     {
         $profile = $this->profileService->find($id);
 
-        return $this->successResponse(
-            message: 'Profile retrieved successfully.',
-            data: new ProfileResource($profile)
+        return $this->resourceResponse(
+            'Profile retrieved successfully.',
+            new ProfileResource($profile)
         );
     }
 
@@ -55,9 +51,9 @@ class ProfileController extends Controller
     {
         $profile = $this->profileService->update($id, $request->validated());
 
-        return $this->successResponse(
-            message: 'Profile updated successfully.',
-            data: new ProfileResource($profile)
+        return $this->resourceResponse(
+            'Profile updated successfully.',
+            new ProfileResource($profile)
         );
     }
 
@@ -65,8 +61,6 @@ class ProfileController extends Controller
     {
         $this->profileService->delete($id);
 
-        return $this->successResponse(
-            message: 'Profile deleted successfully.'
-        );
+        return $this->deletedResponse('Profile deleted successfully.');
     }
 }

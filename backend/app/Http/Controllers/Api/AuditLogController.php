@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\AuditLogCollection;
 use App\Http\Resources\AuditLogResource;
 use App\Services\AuditLogService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuditLogController extends Controller
+class AuditLogController extends BaseApiController
 {
-    use ApiResponse;
-
     public function __construct(
         private readonly AuditLogService $auditLogService
     ) {}
@@ -32,9 +28,9 @@ class AuditLogController extends Controller
     {
         $log = $this->auditLogService->find($id);
 
-        return $this->successResponse(
-            message: 'Audit log retrieved successfully.',
-            data: new AuditLogResource($log)
+        return $this->resourceResponse(
+            'Audit log retrieved successfully.',
+            new AuditLogResource($log)
         );
     }
 }
