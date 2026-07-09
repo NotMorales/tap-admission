@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthSectionResource extends JsonResource
+class ProductResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -13,11 +13,10 @@ class AuthSectionResource extends JsonResource
             'id' => (string) $this->_id,
             'code' => $this->code,
             'name' => $this->name,
-            'route' => $this->route,
-            'icon' => $this->icon,
-            'permissions' => $this->allowed_actions ?? [],
-            'order' => $this->order,
+            'brand' => $this->brand,
+            'price' => $this->price,
             'status' => $this->status,
+            'created_at' => optional($this->created_at)->format('d/m/Y H:i'),
         ];
     }
 }

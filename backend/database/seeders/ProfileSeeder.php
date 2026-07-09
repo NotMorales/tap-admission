@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PermissionAction;
 use App\Enums\ProfileStatus;
 use App\Models\Profile;
 use App\Models\Section;
@@ -23,21 +24,89 @@ class ProfileSeeder extends BaseSeeder
                 [
                     'code' => 'PRF-000001',
                     'name' => 'Administrador',
-                    'section_ids' => [
-                        (string)$dashboard->_id,
-                        (string)$users->_id,
-                        (string)$products->_id,
-                        (string)$profiles->_id,
-                        (string)$audit->_id,
+                    'permissions' => [
+                        [
+                            'section_id' => (string) $dashboard->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $users->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::CREATE->value,
+                                PermissionAction::UPDATE->value,
+                                PermissionAction::DELETE->value,
+                                PermissionAction::EXPORT->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $products->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::CREATE->value,
+                                PermissionAction::UPDATE->value,
+                                PermissionAction::DELETE->value,
+                                PermissionAction::EXPORT->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $profiles->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::CREATE->value,
+                                PermissionAction::UPDATE->value,
+                                PermissionAction::DELETE->value,
+                                PermissionAction::EXPORT->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $audit->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::EXPORT->value,
+                            ],
+                        ],
                     ],
                     'status' => ProfileStatus::ACTIVE->value,
                 ],
                 [
                     'code' => 'PRF-000002',
                     'name' => 'Supervisor',
-                    'section_ids' => [
-                        (string)$dashboard->_id,
-                        (string)$products->_id,
+                    'permissions' => [
+                        [
+                            'section_id' => (string) $dashboard->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $products->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                                PermissionAction::UPDATE->value,
+                            ],
+                        ],
+                    ],
+                    'status' => ProfileStatus::ACTIVE->value,
+                ],
+                [
+                    'code' => 'PRF-000003',
+                    'name' => 'Consulta',
+                    'permissions' => [
+                        [
+                            'section_id' => (string) $dashboard->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                            ],
+                        ],
+                        [
+                            'section_id' => (string) $products->_id,
+                            'actions' => [
+                                PermissionAction::VIEW->value,
+                            ],
+                        ],
                     ],
                     'status' => ProfileStatus::ACTIVE->value,
                 ],

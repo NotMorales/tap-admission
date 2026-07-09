@@ -10,18 +10,39 @@ class ProfileResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $permissions = collect($this->permissions ?? []);
+
+        $sectionIds = $permissions
+            ->pluck('section_id')
+            ->unique()
+            ->values()
+            ->toArray();
+
         $sections = Section::query()
-            ->whereIn('_id', $this->section_ids ?? [])
+            ->whereIn('_id', $sectionIds)
             ->whereNull('deleted_at')
             ->orderBy('order')
-            ->get();
+            ->get()
+            ->map(function ($section) use ($permissions) {
+                $permission = $permissions
+                    ->firstWhere('section_id', (string) $section->_id);
+
+                return [
+                    'id' => (string) $section->_id,
+                    'code' => $section->code,
+                    'name' => $section->name,
+                    'route' => $section->route,
+                    'icon' => $section->icon,
+                    'actions' => $permission['actions'] ?? [],
+                ];
+            });
 
         return [
             'id' => (string) $this->_id,
             'code' => $this->code,
             'name' => $this->name,
-            'section_ids' => $this->section_ids,
-            'sections' => SectionResource::collection($sections),
+            'permissions' => $this->permissions ?? [],
+            'sections' => $sections,
             'status' => $this->status,
             'created_at' => optional($this->created_at)->format('d/m/Y H:i'),
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PermissionAction;
 use App\Enums\ProfileStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -18,8 +19,10 @@ class StoreProfileRequest extends FormRequest
         return [
             'code' => ['required', 'string', 'max:20', 'unique:profiles,code'],
             'name' => ['required', 'string', 'max:100'],
-            'section_ids' => ['required', 'array', 'min:1'],
-            'section_ids.*' => ['required', 'string'],
+            'permissions' => ['required', 'array', 'min:1'],
+            'permissions.*.section_id' => ['required', 'string'],
+            'permissions.*.actions' => ['required', 'array', 'min:1'],
+            'permissions.*.actions.*' => ['required', Rule::enum(PermissionAction::class)],
             'status' => ['required', Rule::enum(ProfileStatus::class)],
         ];
     }

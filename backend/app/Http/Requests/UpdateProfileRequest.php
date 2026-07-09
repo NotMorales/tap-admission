@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PermissionAction;
 use App\Enums\ProfileStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -20,8 +21,10 @@ class UpdateProfileRequest extends FormRequest
         return [
             'code' => ['sometimes', 'string', 'max:20', Rule::unique('profiles', 'code')->ignore($profileId)],
             'name' => ['sometimes', 'string', 'max:100'],
-            'section_ids' => ['sometimes', 'array', 'min:1'],
-            'section_ids.*' => ['required', 'string'],
+            'permissions' => ['sometimes', 'array', 'min:1'],
+            'permissions.*.section_id' => ['required', 'string'],
+            'permissions.*.actions' => ['required', 'array', 'min:1'],
+            'permissions.*.actions.*' => ['required', Rule::enum(PermissionAction::class)],
             'status' => ['sometimes', Rule::enum(ProfileStatus::class)],
         ];
     }

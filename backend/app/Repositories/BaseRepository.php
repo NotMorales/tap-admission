@@ -62,5 +62,5 @@ abstract class BaseRepository
 
     abstract protected function model(): string;
 
-    abstract protected function applySearch($query, string $search);
+    abstract protected function filter(): \App\Filters\BaseFilter;
 }

@@ -19,7 +19,7 @@ class PermissionService
             ->sections($user)
             ->contains(function ($section) use ($route, $actionValue) {
                 return $section->route === $route
-                    && in_array($actionValue, $section->permissions ?? [], true);
+                    && in_array($actionValue, $section->allowed_actions ?? [], true);
             });
     }
 

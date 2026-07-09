@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use App\Enums\ProfileStatus;
+use App\Enums\ProductStatus;
 
-class Profile extends BaseModel
+class Product extends BaseModel
 {
-    public const COLLECTION = 'profiles';
+    public const COLLECTION = 'products';
 
     protected $collection = self::COLLECTION;
 
     protected $fillable = [
         'code',
         'name',
-        'permissions',
+        'brand',
+        'price',
         'status',
         'created_by',
         'updated_by',
@@ -21,8 +22,8 @@ class Profile extends BaseModel
     ];
 
     protected $casts = [
-        'permissions' => 'array',
-        'status' => ProfileStatus::class,
+        'price' => 'integer',
+        'status' => ProductStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

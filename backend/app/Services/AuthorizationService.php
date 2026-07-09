@@ -22,8 +22,9 @@ class AuthorizationService
         $profiles = $this->profiles($user);
 
         $sectionIds = $profiles
-            ->pluck('section_ids')
-            ->flatten()
+            ->pluck('permissions')
+            ->flatten(1)
+            ->pluck('section_id')
             ->unique()
             ->values()
             ->toArray();
@@ -32,7 +33,22 @@ class AuthorizationService
             ->whereIn('_id', $sectionIds)
             ->whereNull('deleted_at')
             ->orderBy('order')
-            ->get();
+            ->get()
+            ->map(function ($section) use ($profiles) {
+                $actions = $profiles
+                    ->pluck('permissions')
+                    ->flatten(1)
+                    ->where('section_id', (string) $section->_id)
+                    ->pluck('actions')
+                    ->flatten()
+                    ->unique()
+                    ->values()
+                    ->toArray();
+
+                $section->allowed_actions = $actions;
+
+                return $section;
+            });
     }
 
     public function context(User $user): array
