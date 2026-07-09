@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 
 trait ApiResponse
 {
@@ -17,9 +18,7 @@ trait ApiResponse
             'message' => $message,
             'data' => $data,
             'errors' => null,
-            'meta' => [
-                'timestamp' => now()->toISOString(),
-            ],
+            'meta' => $this->meta(),
         ], $extra), $status);
     }
 
@@ -33,9 +32,16 @@ trait ApiResponse
             'message' => $message,
             'data' => null,
             'errors' => $errors,
-            'meta' => [
-                'timestamp' => now()->toISOString(),
-            ],
+            'meta' => $this->meta(),
         ], $status);
+    }
+
+    private function meta(): array
+    {
+        return [
+            'timestamp' => now()->toISOString(),
+            'request_id' => (string) Str::uuid(),
+            'api_version' => 'v1',
+        ];
     }
 }
