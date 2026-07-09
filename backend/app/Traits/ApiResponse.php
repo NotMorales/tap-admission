@@ -12,13 +12,15 @@ trait ApiResponse
         int $status = 200,
         array $extra = []
     ): JsonResponse {
-        $response = [
+        return response()->json(array_merge([
             'success' => true,
             'message' => $message,
             'data' => $data,
-        ];
-
-        return response()->json(array_merge($response, $extra), $status);
+            'errors' => null,
+            'meta' => [
+                'timestamp' => now()->toISOString(),
+            ],
+        ], $extra), $status);
     }
 
     protected function errorResponse(
@@ -29,7 +31,11 @@ trait ApiResponse
         return response()->json([
             'success' => false,
             'message' => $message,
+            'data' => null,
             'errors' => $errors,
+            'meta' => [
+                'timestamp' => now()->toISOString(),
+            ],
         ], $status);
     }
 }

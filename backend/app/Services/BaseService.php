@@ -2,54 +2,57 @@
 
 namespace App\Services;
 
+use App\Exceptions\NotFoundException;
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\BaseRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 abstract class BaseService
 {
-    public function all(): Collection
+    public function paginate(array $filters = [], int $perPage = 10): LengthAwarePaginator
     {
-        return $this->model()::query()
-            ->whereNull('deleted_at')
-            ->latest()
-            ->get();
+        return $this->repository()->paginate($filters, $perPage);
     }
 
-    public function find(string $id): ?BaseModel
+    public function find(string $id): BaseModel
     {
-        return $this->model()::query()
-            ->whereNull('deleted_at')
-            ->find($id);
+        $record = $this->repository()->find($id);
+
+        if (! $record) {
+            throw new NotFoundException($this->notFoundMessage());
+        }
+
+        return $record;
     }
 
     public function create(array $data): BaseModel
     {
-        return $this->model()::query()->create($data);
+        return $this->repository()->create($data);
     }
 
-    public function update(string $id, array $data): ?BaseModel
+    public function update(string $id, array $data): BaseModel
     {
         $record = $this->find($id);
 
-        if (! $record) {
-            return null;
-        }
-
-        $record->update($data);
-
-        return $record->fresh();
+        return $this->repository()->update($record, $data);
     }
 
     public function delete(string $id): bool
     {
         $record = $this->find($id);
 
-        if (! $record) {
-            return false;
-        }
-
-        return (bool) $record->delete();
+        return $this->repository()->delete($record);
     }
 
-    abstract protected function model(): string;
+    public function restore(string $id): bool
+    {
+        return $this->repository()->restore($id);
+    }
+
+    protected function notFoundMessage(): string
+    {
+        return 'Resource not found.';
+    }
+
+    abstract protected function repository(): BaseRepository;
 }
