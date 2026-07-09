@@ -46,7 +46,7 @@ abstract class ApiTestCase extends TestCase
     protected function authHeaders(): array
     {
         return [
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
             'Accept' => 'application/json',
         ];
     }

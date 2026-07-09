@@ -31,7 +31,7 @@ class ProductTest extends ApiTestCase
         $productId = $this->getJson('/api/products', $this->authHeaders())
             ->json('data.0.id');
 
-        $response = $this->putJson('/api/products/' . $productId, [
+        $response = $this->putJson('/api/products/'.$productId, [
             'price' => 300,
         ], $this->authHeaders());
 
@@ -44,7 +44,7 @@ class ProductTest extends ApiTestCase
         $productId = $this->getJson('/api/products', $this->authHeaders())
             ->json('data.0.id');
 
-        $response = $this->deleteJson('/api/products/' . $productId, [], $this->authHeaders());
+        $response = $this->deleteJson('/api/products/'.$productId, [], $this->authHeaders());
 
         $response->assertOk()
             ->assertJsonPath('success', true);

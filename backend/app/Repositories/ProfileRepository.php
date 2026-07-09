@@ -15,7 +15,7 @@ class ProfileRepository extends BaseRepository
 
     protected function filter(): BaseFilter
     {
-        return new ProfileFilter();
+        return new ProfileFilter;
     }
 
     public function allForExport()

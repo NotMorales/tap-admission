@@ -46,7 +46,7 @@ class AuthorizationTest extends ApiTestCase
             'price' => 100,
             'status' => 'ACTIVE',
         ], [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
         ])->assertForbidden();
     }
@@ -74,7 +74,7 @@ class AuthorizationTest extends ApiTestCase
         $token = $login->json('data.access_token');
 
         $this->getJson('/api/products', [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
         ])->assertOk();
     }

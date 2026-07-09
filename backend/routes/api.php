@@ -1,17 +1,16 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\SectionController;
-use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AuditLogController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Exports\ProductExportController;
-use App\Http\Controllers\Api\Exports\UserExportController;
 use App\Http\Controllers\Api\Exports\ProfileExportController;
+use App\Http\Controllers\Api\Exports\UserExportController;
 use App\Http\Controllers\Api\PasswordRecoveryController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\SectionController;
+use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::post('auth/recover-password', [PasswordRecoveryController::class, 'recover']);
 

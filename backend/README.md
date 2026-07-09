@@ -239,6 +239,7 @@ Ejecutar:
 
 ```bash
 php artisan test
+```
 
 ## Bitácora
 
@@ -270,3 +271,125 @@ La bitácora almacena:
 - Soft Delete en registros principales.
 - MongoDB como persistencia principal.
 - JWT para autenticación.
+
+# Funcionalidades implementadas
+
+## Autenticación
+
+- Login JWT
+- Logout
+- Usuario autenticado (/auth/me)
+- Recuperación de contraseña temporal
+
+---
+
+## Seguridad
+
+- JWT
+- Middleware de autenticación
+- Middleware de permisos
+- Validaciones mediante FormRequest
+- Password Hash
+- Soft Delete
+
+---
+
+## Catálogos
+
+- Usuarios
+- Perfiles
+- Secciones
+- Productos
+
+Todos cuentan con:
+
+- CRUD
+- Validaciones
+- Código automático
+- Paginación
+- Búsqueda
+- Ordenamiento
+- Exportaciones
+
+---
+
+## Exportaciones
+
+### CSV
+
+- Productos
+- Usuarios
+- Perfiles
+
+### PDF
+
+- Productos
+- Usuarios
+- Perfiles
+
+---
+
+## Bitácora
+
+El sistema registra automáticamente:
+
+- LOGIN
+- LOGOUT
+- CREATE
+- UPDATE
+- DELETE
+- EXPORT
+- PASSWORD_RECOVERY
+
+Incluyendo:
+
+- Usuario
+- IP
+- User Agent
+- Datos anteriores
+- Datos nuevos
+
+---
+
+## Arquitectura
+
+Controller
+
+↓
+
+Service
+
+↓
+
+Repository
+
+↓
+
+Model
+
+Además:
+
+- Resources
+- FormRequest
+- Enums
+- Filters
+- BaseRepository
+- BaseService
+- BaseExport
+- BasePdf
+
+---
+
+## Pruebas
+
+El backend cuenta con pruebas automatizadas para:
+
+- Auth
+- Authorization
+- Users
+- Products
+- Profiles
+- Sections
+- Audit Logs
+- Exportaciones
+- Recuperación de contraseña

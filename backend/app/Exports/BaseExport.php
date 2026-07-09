@@ -18,8 +18,8 @@ abstract class BaseExport
 
             $file = fopen('php://output', 'w');
 
-// UTF-8 BOM
-            fwrite($file, chr(0xEF) . chr(0xBB) . chr(0xBF));
+            // UTF-8 BOM
+            fwrite($file, chr(0xEF).chr(0xBB).chr(0xBF));
 
             fputcsv($file, $this->headers());
 
@@ -29,6 +29,6 @@ abstract class BaseExport
 
             fclose($file);
 
-        }, $this->filename() . '.csv');
+        }, $this->filename().'.csv');
     }
 }

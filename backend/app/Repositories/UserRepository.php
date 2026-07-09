@@ -15,7 +15,7 @@ class UserRepository extends BaseRepository
 
     protected function filter(): BaseFilter
     {
-        return new UserFilter();
+        return new UserFilter;
     }
 
     protected function applySearch($query, string $search)

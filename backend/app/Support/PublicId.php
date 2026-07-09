@@ -8,6 +8,6 @@ class PublicId
 {
     public static function generate(string $prefix): string
     {
-        return strtoupper($prefix) . '-' . now()->format('Ymd') . '-' . Str::upper(Str::random(8));
+        return strtoupper($prefix).'-'.now()->format('Ymd').'-'.Str::upper(Str::random(8));
     }
 }

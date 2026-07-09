@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthProfileResource;
 use App\Http\Resources\AuthSectionResource;
 use App\Http\Resources\AuthUserResource;
+use App\Services\AuditLogService;
 use App\Services\AuthorizationService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Services\AuditLogService;
 
 class AuthController extends Controller
 {

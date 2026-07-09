@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Logging\ActivityLogger;
 use App\Models\BaseModel;
+use App\Models\Product;
 use App\Repositories\BaseRepository;
 use App\Repositories\ProductRepository;
-use App\Models\Product;
 use App\Support\CodeGenerator;
 
 class ProductService extends BaseService

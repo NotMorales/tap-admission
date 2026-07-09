@@ -13,7 +13,7 @@ class ProductsExport extends BaseExport
             'Nombre',
             'Marca',
             'Precio',
-            'Estado'
+            'Estado',
         ];
     }
 

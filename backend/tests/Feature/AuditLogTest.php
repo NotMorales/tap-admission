@@ -31,7 +31,7 @@ class AuditLogTest extends ApiTestCase
 
         $auditId = $this->getJson('/api/audit-logs', $this->authHeaders())->json('data.0.id');
 
-        $this->getJson('/api/audit-logs/' . $auditId, $this->authHeaders())
+        $this->getJson('/api/audit-logs/'.$auditId, $this->authHeaders())
             ->assertOk()
             ->assertJsonPath('success', true);
     }

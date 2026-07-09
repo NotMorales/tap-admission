@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Filters\BaseFilter;
 use App\Filters\AuditLogFilter;
+use App\Filters\BaseFilter;
 use App\Models\AuditLog;
 
 class AuditLogRepository extends BaseRepository
@@ -15,6 +15,6 @@ class AuditLogRepository extends BaseRepository
 
     protected function filter(): BaseFilter
     {
-        return new AuditLogFilter();
+        return new AuditLogFilter;
     }
 }

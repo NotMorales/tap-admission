@@ -7,6 +7,7 @@ use App\Enums\SectionStatus;
 class Section extends BaseModel
 {
     public const COLLECTION = 'sections';
+
     protected $collection = self::COLLECTION;
 
     protected $casts = [
@@ -24,6 +25,6 @@ class Section extends BaseModel
         'icon',
         'permissions',
         'order',
-        'status'
+        'status',
     ];
 }

@@ -8,8 +8,8 @@ use MongoDB\Laravel\Eloquent\SoftDeletes;
 
 abstract class BaseModel extends Model
 {
-    use SoftDeletes;
     use HasUserTracking;
+    use SoftDeletes;
 
     protected $connection = 'mongodb';
 

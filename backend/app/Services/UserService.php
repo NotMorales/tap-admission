@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\BaseModel;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use App\Support\CodeGenerator;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService
 {

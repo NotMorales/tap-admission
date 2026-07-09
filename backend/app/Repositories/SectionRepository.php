@@ -15,6 +15,6 @@ class SectionRepository extends BaseRepository
 
     protected function filter(): BaseFilter
     {
-        return new SectionFilter();
+        return new SectionFilter;
     }
 }

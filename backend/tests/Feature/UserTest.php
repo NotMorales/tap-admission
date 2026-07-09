@@ -32,7 +32,7 @@ class UserTest extends ApiTestCase
     {
         $id = $this->getJson('/api/users', $this->authHeaders())->json('data.0.id');
 
-        $this->putJson('/api/users/' . $id, [
+        $this->putJson('/api/users/'.$id, [
             'name' => 'Usuario Actualizado',
         ], $this->authHeaders())
             ->assertOk()
@@ -43,7 +43,7 @@ class UserTest extends ApiTestCase
     {
         $id = $this->getJson('/api/users', $this->authHeaders())->json('data.0.id');
 
-        $this->deleteJson('/api/users/' . $id, [], $this->authHeaders())
+        $this->deleteJson('/api/users/'.$id, [], $this->authHeaders())
             ->assertOk()
             ->assertJsonPath('success', true);
     }

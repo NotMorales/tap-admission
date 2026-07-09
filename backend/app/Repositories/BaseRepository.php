@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Filters\BaseFilter;
 use App\Models\BaseModel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -69,5 +70,5 @@ abstract class BaseRepository
 
     abstract protected function model(): string;
 
-    abstract protected function filter(): \App\Filters\BaseFilter;
+    abstract protected function filter(): BaseFilter;
 }

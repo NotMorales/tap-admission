@@ -30,7 +30,7 @@ class SectionTest extends ApiTestCase
     {
         $id = $this->getJson('/api/sections', $this->authHeaders())->json('data.0.id');
 
-        $this->putJson('/api/sections/' . $id, [
+        $this->putJson('/api/sections/'.$id, [
             'name' => 'Sección Actualizada',
         ], $this->authHeaders())
             ->assertOk()
@@ -41,7 +41,7 @@ class SectionTest extends ApiTestCase
     {
         $id = $this->getJson('/api/sections', $this->authHeaders())->json('data.0.id');
 
-        $this->deleteJson('/api/sections/' . $id, [], $this->authHeaders())
+        $this->deleteJson('/api/sections/'.$id, [], $this->authHeaders())
             ->assertOk()
             ->assertJsonPath('success', true);
     }

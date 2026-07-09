@@ -15,7 +15,7 @@ class ProductRepository extends BaseRepository
 
     protected function filter(): BaseFilter
     {
-        return new ProductFilter();
+        return new ProductFilter;
     }
 
     public function allForExport()

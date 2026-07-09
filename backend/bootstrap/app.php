@@ -1,11 +1,11 @@
 <?php
 
+use App\Exceptions\NotFoundException;
+use App\Http\Middleware\HasPermission;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Exceptions\NotFoundException;
 use Illuminate\Http\Request;
-use App\Http\Middleware\HasPermission;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

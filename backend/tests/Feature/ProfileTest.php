@@ -34,7 +34,7 @@ class ProfileTest extends ApiTestCase
     {
         $id = $this->getJson('/api/profiles', $this->authHeaders())->json('data.0.id');
 
-        $this->putJson('/api/profiles/' . $id, [
+        $this->putJson('/api/profiles/'.$id, [
             'name' => 'Perfil Actualizado',
         ], $this->authHeaders())
             ->assertOk()
@@ -45,7 +45,7 @@ class ProfileTest extends ApiTestCase
     {
         $id = $this->getJson('/api/profiles', $this->authHeaders())->json('data.0.id');
 
-        $this->deleteJson('/api/profiles/' . $id, [], $this->authHeaders())
+        $this->deleteJson('/api/profiles/'.$id, [], $this->authHeaders())
             ->assertOk()
             ->assertJsonPath('success', true);
     }

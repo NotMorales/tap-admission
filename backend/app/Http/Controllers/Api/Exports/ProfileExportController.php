@@ -19,7 +19,7 @@ class ProfileExportController extends Controller
     {
         $this->auditLogService->record('PROFILES', 'EXPORT');
 
-        return (new ProfilesExport())->downloadCsv();
+        return (new ProfilesExport)->downloadCsv();
     }
 
     public function pdf()

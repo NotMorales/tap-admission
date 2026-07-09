@@ -19,7 +19,7 @@ class ProductExportController extends Controller
     {
         $this->auditLogService->record('PRODUCTS', 'EXPORT');
 
-        return (new ProductsExport())->downloadCsv();
+        return (new ProductsExport)->downloadCsv();
     }
 
     public function pdf()

@@ -38,7 +38,7 @@ class PasswordRecoveryController extends Controller
             );
         }
 
-        $temporaryPassword = 'Tap-' . Str::upper(Str::random(8));
+        $temporaryPassword = 'Tap-'.Str::upper(Str::random(8));
 
         $user->password = Hash::make($temporaryPassword);
         $user->save();
