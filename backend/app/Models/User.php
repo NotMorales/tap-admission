@@ -5,8 +5,9 @@ namespace App\Models;
 use App\Enums\UserStatus;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends BaseModel implements AuthenticatableContract
+class User extends BaseModel implements AuthenticatableContract, JWTSubject
 {
     use Authenticatable;
 
@@ -39,4 +40,14 @@ class User extends BaseModel implements AuthenticatableContract
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 }
