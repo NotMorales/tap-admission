@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>
+  {{ isEdit ? 'Editar perfil' : 'Nuevo perfil' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="form">
+    <div class="general-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del perfil</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="ACTIVE">Activo</mat-option>
+          <mat-option value="INACTIVE">Inactivo</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <h3>Permisos por sección</h3>
+
+    <div class="permissions-table" formArrayName="permissions">
+      <div class="permission-header">
+        <span>Sección</span>
+        <span>Ver</span>
+        <span>Crear</span>
+        <span>Editar</span>
+        <span>Eliminar</span>
+        <span>Exportar</span>
+      </div>
+
+      <div
+        class="permission-row"
+        *ngFor="let permission of permissions.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <strong>{{ permission.get('section_name')?.value }}</strong>
+
+        <div formGroupName="actions" class="actions-grid">
+          <mat-checkbox formControlName="VIEW"></mat-checkbox>
+          <mat-checkbox formControlName="CREATE"></mat-checkbox>
+          <mat-checkbox formControlName="UPDATE"></mat-checkbox>
+          <mat-checkbox formControlName="DELETE"></mat-checkbox>
+          <mat-checkbox formControlName="EXPORT"></mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">
+    Cancelar
+  </button>
+
+  <button mat-raised-button color="primary" type="button" (click)="save()">
+    Guardar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>
+  {{ isEdit ? 'Editar usuario' : 'Nuevo usuario' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ isEdit ? 'Nueva contraseña opcional' : 'Contraseña' }}</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Perfiles</mat-label>
+      <mat-select formControlName="profile_ids" multiple>
+        <mat-option *ngFor="let profile of data.profiles" [value]="profile.id">
+          {{ profile.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="ACTIVE">Activo</mat-option>
+        <mat-option value="INACTIVE">Inactivo</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="photo-upload">
+      <label>Foto de perfil</label>
+      <input type="file" accept="image/*" (change)="onPhotoSelected($event)">
+      <small *ngIf="isEdit">Opcional. Si seleccionas una nueva imagen, se reemplazará la anterior.</small>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" type="button" (click)="save()">Guardar</button>
+</mat-dialog-actions>

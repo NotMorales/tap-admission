@@ -9,6 +9,8 @@ import { NotificationService } from '../../../core/services/notification.service
 import { DataTableColumn, DataTableComponent } from '../../../shared/data-table/data-table.component';
 import { ProductFormDialogComponent } from '../product-form-dialog/product-form-dialog.component';
 import { DownloadService } from '../../../core/services/download.service';
+import { ConfirmDialogComponent } from '../../../shared/confirm-dialog/confirm-dialog.component';
+import { ProductDetailDialogComponent } from '../product-detail-dialog/product-detail-dialog.component';
 
 @Component({
   selector: 'app-products-list',
@@ -83,7 +85,12 @@ export class ProductsListComponent implements OnInit {
           this.notification.success('Producto creado correctamente.');
           this.loadProducts();
         },
-        error: () => this.notification.error('No se pudo crear el producto.')
+        error: error => {
+          console.error('CREATE PRODUCT ERROR:', error);
+          this.notification.error(
+            error?.error?.message || 'No se pudo crear el producto.'
+          );
+        }
       });
     });
   }
@@ -108,23 +115,34 @@ export class ProductsListComponent implements OnInit {
   }
 
   delete(row: any): void {
-    const ok = confirm(`¿Deseas eliminar el producto "${row.name}"?`);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '420px',
+      data: {
+        title: 'Eliminar producto',
+        message: `¿Deseas eliminar el producto "${row.name}"?`,
+        confirmText: 'Eliminar',
+        cancelText: 'Cancelar'
+      }
+    });
 
-    if (!ok) return;
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (!confirmed) return;
 
-    this.api.delete<any>(`/products/${row.id}`).subscribe({
-      next: () => {
-        this.notification.success('Producto eliminado correctamente.');
-        this.loadProducts();
-      },
-      error: () => this.notification.error('No se pudo eliminar el producto.')
+      this.api.delete<any>(`/products/${row.id}`).subscribe({
+        next: () => {
+          this.notification.success('Producto eliminado correctamente.');
+          this.loadProducts();
+        },
+        error: () => this.notification.error('No se pudo eliminar el producto.')
+      });
     });
   }
 
   view(row: any): void {
-    alert(
-      `Código: ${row.code}\nNombre: ${row.name}\nMarca: ${row.brand}\nPrecio: ${row.price}\nEstado: ${row.status}`
-    );
+    this.dialog.open(ProductDetailDialogComponent, {
+      width: '520px',
+      data: row
+    });
   }
 
   exportPdf(): void {

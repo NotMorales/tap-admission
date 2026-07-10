@@ -1,0 +1,33 @@
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  min-width: 620px;
+}
+
+label {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.permissions {
+  margin-top: 24px;
+}
+
+.permission-card {
+  padding: 14px 0;
+  border-bottom: 1px solid #e2e8f0;
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+  }
+}

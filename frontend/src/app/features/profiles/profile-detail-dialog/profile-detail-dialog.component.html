@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>
+  <mat-icon>admin_panel_settings</mat-icon>
+  Detalle del perfil
+</h2>
+
+<mat-dialog-content>
+  <div class="detail-grid">
+    <div>
+      <label>Código</label>
+      <strong>{{ data.profile.code }}</strong>
+    </div>
+
+    <div>
+      <label>Nombre</label>
+      <strong>{{ data.profile.name }}</strong>
+    </div>
+
+    <div>
+      <label>Estado</label>
+      <strong>{{ data.profile.status }}</strong>
+    </div>
+  </div>
+
+  <div class="permissions">
+    <h3>Permisos relacionados</h3>
+
+    <div
+      class="permission-card"
+      *ngFor="let permission of data.profile.permissions"
+    >
+      <strong>{{ sectionName(permission.section_id) }}</strong>
+
+      <mat-chip-set>
+        <mat-chip *ngFor="let action of permission.actions">
+          {{ action }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <p *ngIf="!data.profile.permissions?.length">
+      El perfil no tiene permisos asignados.
+    </p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>

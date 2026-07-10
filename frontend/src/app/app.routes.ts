@@ -6,6 +6,8 @@ import { ProductsListComponent } from './features/products/products-list/product
 import { UsersListComponent } from './features/users/users-list/users-list.component';
 import { ProfilesListComponent } from './features/profiles/profiles-list/profiles-list.component';
 import { AuditLogsListComponent } from './features/audit-logs/audit-logs-list/audit-logs-list.component';
+import { DashboardComponent } from './features/dashboard/dashboard/dashboard.component';
+import { SectionsListComponent } from './features/sections/sections-list/sections-list.component';
 
 export const routes: Routes = [
   {
@@ -37,11 +39,24 @@ export const routes: Routes = [
       {
         path: 'audit-logs',
         component: AuditLogsListComponent
-      }
+      },
+      {
+        path: 'sections',
+        component: SectionsListComponent
+      },
     ]
   },
   {
     path: '**',
     redirectTo: ''
-  }
+  },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
 ];

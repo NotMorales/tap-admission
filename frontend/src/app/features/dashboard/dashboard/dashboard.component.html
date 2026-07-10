@@ -1,0 +1,40 @@
+<div class="dashboard">
+  <div class="welcome">
+    <h2>Dashboard</h2>
+    <p>Resumen general del sistema administrativo</p>
+  </div>
+
+  <div class="cards">
+    <mat-card class="metric-card">
+      <mat-icon>inventory_2</mat-icon>
+      <div>
+        <span>Productos</span>
+        <strong>{{ totals.products }}</strong>
+      </div>
+    </mat-card>
+
+    <mat-card class="metric-card">
+      <mat-icon>group</mat-icon>
+      <div>
+        <span>Usuarios</span>
+        <strong>{{ totals.users }}</strong>
+      </div>
+    </mat-card>
+
+    <mat-card class="metric-card">
+      <mat-icon>admin_panel_settings</mat-icon>
+      <div>
+        <span>Perfiles</span>
+        <strong>{{ totals.profiles }}</strong>
+      </div>
+    </mat-card>
+
+    <mat-card class="metric-card">
+      <mat-icon>history</mat-icon>
+      <div>
+        <span>Bitácora</span>
+        <strong>{{ totals.auditLogs }}</strong>
+      </div>
+    </mat-card>
+  </div>
+</div>

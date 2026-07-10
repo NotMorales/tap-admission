@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>
+  <mat-icon>inventory_2</mat-icon>
+  Detalle del producto
+</h2>
+
+<mat-dialog-content>
+  <div class="detail-grid">
+    <div>
+      <label>Código</label>
+      <strong>{{ data.code }}</strong>
+    </div>
+
+    <div>
+      <label>Nombre</label>
+      <strong>{{ data.name }}</strong>
+    </div>
+
+    <div>
+      <label>Marca</label>
+      <strong>{{ data.brand }}</strong>
+    </div>
+
+    <div>
+      <label>Precio</label>
+      <strong>{{ data.price | currency:'MXN':'symbol':'1.2-2' }}</strong>
+    </div>
+
+    <div>
+      <label>Estado</label>
+      <strong>{{ data.status }}</strong>
+    </div>
+
+    <div>
+      <label>Fecha creación</label>
+      <strong>{{ data.created_at }}</strong>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>

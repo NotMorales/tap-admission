@@ -1,0 +1,19 @@
+.form {
+  display: grid;
+  gap: 14px;
+  padding-top: 8px;
+  min-width: 460px;
+}
+
+.photo-upload {
+  display: grid;
+  gap: 6px;
+
+  label {
+    font-weight: 600;
+  }
+
+  small {
+    color: #64748b;
+  }
+}

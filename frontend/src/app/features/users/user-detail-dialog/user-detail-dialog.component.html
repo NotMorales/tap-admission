@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>
+  <mat-icon>person</mat-icon>
+  Detalle de usuario
+</h2>
+
+<mat-dialog-content>
+  <div class="photo-box">
+    <img
+      *ngIf="data.photo_url"
+      [src]="data.photo_url"
+      alt="Foto de perfil"
+    />
+
+    <div class="no-photo" *ngIf="!data.photo_url">
+      <mat-icon>account_circle</mat-icon>
+      <span>Sin foto</span>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div>
+      <label>Usuario</label>
+      <strong>{{ data.email }}</strong>
+    </div>
+
+    <div>
+      <label>Nombre</label>
+      <strong>{{ data.name }}</strong>
+    </div>
+
+    <div>
+      <label>Número de teléfono</label>
+      <strong>{{ data.phone || 'Sin teléfono' }}</strong>
+    </div>
+
+    <div>
+      <label>Código</label>
+      <strong>{{ data.code }}</strong>
+    </div>
+  </div>
+
+  <div class="profiles">
+    <label>Perfiles relacionados</label>
+
+    <mat-chip-set *ngIf="data.profiles?.length > 0">
+      <mat-chip *ngFor="let profile of data.profiles">
+        {{ profile.name }}
+      </mat-chip>
+    </mat-chip-set>
+
+    <p *ngIf="!data.profiles || data.profiles.length === 0">
+      Sin perfiles relacionados.
+    </p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>

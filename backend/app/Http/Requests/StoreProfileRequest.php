@@ -17,7 +17,7 @@ class StoreProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:20', 'unique:profiles,code'],
+            'code' => ['sometimes', 'string', 'max:20', 'unique:profiles,code'],
             'name' => ['required', 'string', 'max:100'],
             'permissions' => ['required', 'array', 'min:1'],
             'permissions.*.section_id' => ['required', 'string'],

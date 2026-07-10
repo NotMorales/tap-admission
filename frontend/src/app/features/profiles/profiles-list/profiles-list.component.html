@@ -1,13 +1,37 @@
 <mat-card>
   <div class="header">
     <div>
-      <h2>Perfiles</h2>
-      <p>Consulta de perfiles y permisos</p>
+      <h2>Perfiles de usuarios</h2>
+      <p>Administración de perfiles y permisos del sistema</p>
     </div>
 
     <div class="actions">
-      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportCsv()">CSV</button>
-      <button mat-stroked-button color="primary" *ngIf="can('EXPORT')" (click)="exportPdf()">PDF</button>
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngIf="can('EXPORT')"
+        (click)="exportCsv()"
+      >
+        CSV
+      </button>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngIf="can('EXPORT')"
+        (click)="exportPdf()"
+      >
+        PDF
+      </button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="can('CREATE')"
+        (click)="create()"
+      >
+        Nuevo perfil
+      </button>
     </div>
   </div>
 
@@ -18,5 +42,7 @@
     [canEdit]="can('UPDATE')"
     [canDelete]="can('DELETE')"
     (view)="view($event)"
+    (edit)="edit($event)"
+    (delete)="delete($event)"
   />
 </mat-card>

@@ -1,0 +1,48 @@
+.dashboard {
+  display: grid;
+  gap: 20px;
+}
+
+.welcome {
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #64748b;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.metric-card {
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  mat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 44px;
+    color: #3f51b5;
+  }
+
+  span {
+    display: block;
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  strong {
+    display: block;
+    font-size: 30px;
+    margin-top: 4px;
+  }
+}

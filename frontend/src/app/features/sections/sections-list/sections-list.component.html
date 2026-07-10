@@ -1,0 +1,17 @@
+<mat-card>
+  <div class="header">
+    <div>
+      <h2>Secciones</h2>
+      <p>Consulta de secciones del sistema</p>
+    </div>
+  </div>
+
+  <app-data-table
+    [columns]="columns"
+    [rows]="sections"
+    [canView]="true"
+    [canEdit]="false"
+    [canDelete]="false"
+    (view)="view($event)"
+  />
+</mat-card>

@@ -13,10 +13,12 @@ class ProfileTest extends ApiTestCase
 
     public function test_user_can_create_profile(): void
     {
-        $sectionId = $this->getJson('/api/sections', $this->authHeaders())->json('data.0.id');
+        $sectionId = $this->getJson(
+            '/api/sections',
+            $this->authHeaders()
+        )->json('data.0.id');
 
-        $this->postJson('/api/profiles', [
-            'code' => 'PRF-TEST-01',
+        $response = $this->postJson('/api/profiles', [
             'name' => 'Perfil Test',
             'permissions' => [
                 [
@@ -25,9 +27,27 @@ class ProfileTest extends ApiTestCase
                 ],
             ],
             'status' => 'ACTIVE',
-        ], $this->authHeaders())
+        ], $this->authHeaders());
+
+        $response
             ->assertCreated()
-            ->assertJsonPath('data.code', 'PRF-TEST-01');
+            ->assertJsonPath('success', true)
+            ->assertJsonPath('data.name', 'Perfil Test')
+            ->assertJsonPath('data.status', 'ACTIVE')
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'code',
+                    'name',
+                    'permissions',
+                    'status',
+                ],
+            ]);
+
+        $this->assertMatchesRegularExpression(
+            '/^PRF-\d{6}$/',
+            $response->json('data.code')
+        );
     }
 
     public function test_user_can_update_profile(): void
