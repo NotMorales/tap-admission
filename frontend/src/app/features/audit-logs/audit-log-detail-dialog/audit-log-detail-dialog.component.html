@@ -1,0 +1,95 @@
+<h2 mat-dialog-title>
+  Detalle de auditoría
+</h2>
+
+<mat-dialog-content>
+  <div class="detail-grid">
+    <div class="detail-item">
+      <label>Módulo</label>
+      <strong>{{ data.module || 'No disponible' }}</strong>
+    </div>
+
+    <div class="detail-item">
+      <label>Acción</label>
+      <strong>{{ data.action || 'No disponible' }}</strong>
+    </div>
+
+    <div class="detail-item">
+      <label>Usuario</label>
+      <strong>
+        {{
+          data.user?.name ||
+          data.user_name ||
+          data.username ||
+          data.email ||
+          'No disponible'
+        }}
+      </strong>
+    </div>
+
+    <div class="detail-item">
+      <label>IP</label>
+      <strong>
+        {{ data.ip || data.ip_address || 'No disponible' }}
+      </strong>
+    </div>
+
+    <div class="detail-item">
+      <label>Registro afectado</label>
+      <strong>
+        {{
+          data.record_code ||
+          data.model_id ||
+          data.record_id ||
+          'No disponible'
+        }}
+      </strong>
+    </div>
+
+    <div class="detail-item">
+      <label>Fecha</label>
+      <strong>{{ data.created_at || 'No disponible' }}</strong>
+    </div>
+  </div>
+
+  <section class="data-section">
+    <h3>Información anterior</h3>
+
+    <pre *ngIf="hasContent(data.old_data)">
+{{ data.old_data | json }}
+    </pre>
+
+    <p *ngIf="!hasContent(data.old_data)">
+      No hay información anterior.
+    </p>
+  </section>
+
+  <section class="data-section">
+    <h3>Información nueva</h3>
+
+    <pre *ngIf="hasContent(data.new_data)">
+{{ data.new_data | json }}
+    </pre>
+
+    <p *ngIf="!hasContent(data.new_data)">
+      No hay información nueva.
+    </p>
+  </section>
+
+  <section class="data-section" *ngIf="hasContent(data.payload)">
+    <h3>Datos adicionales</h3>
+
+    <pre>{{ data.payload | json }}</pre>
+  </section>
+
+  <section class="data-section" *ngIf="data.user_agent">
+    <h3>Navegador o cliente</h3>
+    <p>{{ data.user_agent }}</p>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>
